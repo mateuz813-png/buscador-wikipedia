@@ -1,0 +1,62 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WikiBusca - CSS Personalizado</title>
+    <!-- Importando o nosso CSS estático do Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Cabeçalho -->
+        <header class="header">
+            <h1>Wiki<span>Busca</span></h1>
+            <p>Sua enciclopédia rápida com CSS puro e elegante</p>
+        </header>
+
+        <!-- Form de Busca -->
+        <form action="/" method="GET" class="busca-form">
+            <input 
+                type="text" 
+                name="q" 
+                class="busca-input"
+                placeholder="O que quer pesquisar?" 
+                value="{{ busca_anterior if busca_anterior else '' }}"
+                required
+            >
+            <button type="submit" class="busca-btn">Pesquisar</button>
+        </form>
+
+        <!-- Seção de Resultados -->
+        <main>
+            {% if busca_anterior and not resultados %}
+                <p style="text-align: center; color: var(--texto-mutado);">
+                    Nenhum resultado encontrado para "{{ busca_anterior }}".
+                </p>
+            {% endif %}
+
+            {% for resultado in resultados %}
+                <article class="resultado-card">
+                    <h2>
+                        <a href="{{ resultado.link }}" target="_blank">{{ resultado.titulo }}</a>
+                    </h2>
+                    <p>{{ resultado.resumo }}</p>
+                    
+                    <div class="card-footer">
+                        <span class="fonte-info">Fonte: Wikipédia</span>
+                        <a href="{{ resultado.link }}" target="_blank" class="link-completo">
+                            Ler artigo completo &rarr;
+                        </a>
+                    </div>
+                </article>
+            {% endfor %}
+        </main>
+
+    </div>
+
+</body>
+</html>
