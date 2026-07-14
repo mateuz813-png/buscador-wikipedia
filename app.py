@@ -63,5 +63,5 @@ if __name__ == "__main__":
     # Roda o servidor local em modo de desenvolvimento
     app.run(debug=True)
     
-    if __name__ == "__main__":
-    app.run(host="0.0.0.5000", port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000) # Certo: Com 4 espaços (ou um Tab) de recuo
